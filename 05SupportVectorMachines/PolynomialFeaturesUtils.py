@@ -2,6 +2,7 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
 
 def plot_dataset(X, y, axes):
     plt.plot(X[:, 0][y==0], X[:, 1][y==0], "bs")
@@ -38,3 +39,4 @@ def find_support_vectors(svm_reg, X, y):
     y_pred = svm_reg.predict(X)
     off_margin = (np.abs(y - y_pred) >= svm_reg.epsilon)
     return np.argwhere(off_margin)
+
