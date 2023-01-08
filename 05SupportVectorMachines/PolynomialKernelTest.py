@@ -10,6 +10,7 @@ from PolynomialFeaturesUtils import plot_predictions, plot_dataset
 from sklearn.svm import SVC
 
 X, y = make_moons(n_samples=100, noise=0.15, random_state=42)
+#print(y)
 
 poly_kernel_svm_clf = Pipeline([
     ('scaler', StandardScaler()),
