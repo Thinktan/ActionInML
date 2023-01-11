@@ -9,6 +9,13 @@ y = iris.target
 tree_clf = DecisionTreeClassifier(max_depth=2)
 tree_clf.fit(X, y)
 
+ans = tree_clf.predict_proba([[5, 1.5]])
+print(ans)
+
+print(tree_clf.predict([[5, 1.5]]))
+
+exit(0) # 退出
+
 print(y)
 
 from sklearn.tree import export_graphviz
@@ -31,8 +38,8 @@ print(os.path.join(IMAGES_PATH, "iris.dot"))
 
 export_graphviz(
     tree_clf,
-    #out_file=os.path.join(IMAGES_PATH, "iris.dot"),
-    out_file=os.path.join("iris.dot"),
+    out_file=os.path.join(IMAGES_PATH, "iris.dot"),
+    #out_file=os.path.join("iris.dot"),
     feature_names=iris.feature_names[2:],
     class_names=iris.target_names,
     rounded=True,
