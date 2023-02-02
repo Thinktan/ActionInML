@@ -13,12 +13,26 @@ urllib.request.urlretrieve(url, os.path.join(IMAGES_PATH, filename))
 from matplotlib.image import imread
 image = imread(os.path.join(IMAGES_PATH, filename))
 print(image.shape)
+print(image[0:1, 0:3, ])
 
 from sklearn.cluster import KMeans
 
 X = image.reshape(-1, 3)
+print(X.shape)
+print(X[0:3, ])
+
 kmeans = KMeans(n_clusters=8, random_state=42).fit(X)
+print("labels")
+print(kmeans.labels_)
+print(kmeans.labels_.shape)
+
+print("cluster_centers_")
+print(kmeans.cluster_centers_)
+print(kmeans.cluster_centers_.shape)
+
+print("segmented_img")
 segmented_img = kmeans.cluster_centers_[kmeans.labels_]
+print(segmented_img.shape)
 segmented_img = segmented_img.reshape(image.shape)
 
 
