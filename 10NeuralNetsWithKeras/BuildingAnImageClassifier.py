@@ -58,7 +58,17 @@ model.compile(loss="sparse_categorical_crossentropy",
               optimizer="sgd",
               metrics=["accuracy"])
 
-model.compile(loss="sparse_categorical_crossentropy",
-              optimizer="sgd",
-              metrics=["accuracy"])
+history = model.fit(X_train, y_train, epochs=30,
+                    validation_data=(X_valid, y_valid))
 
+print(history.params)
+print(history.epoch)
+print(history.history.keys())
+
+import pandas as pd
+
+pd.DataFrame(history.history).plot(figsize=(8, 5))
+plt.grid(True)
+plt.gca().set_ylim(0, 1)
+save_fig("keras_learning_curves_plot")
+plt.show()
