@@ -10,8 +10,8 @@ assert sklearn.__version__ >= "0.20"
 # TensorFlow ≥2.4 is required in this notebook
 # Earlier 2.x versions will mostly work the same, but with a few bugs
 import tensorflow as tf
-from tensorflow import keras
-print(tf.__version__)
+#from tensorflow import keras
+#print(tf.__version__)
 #assert tf.__version__ >= "2.4"
 
 # Common imports
