@@ -43,7 +43,8 @@ import platform
 if platform.system().lower() == "linux":
     PROJECT_ROOT_DIR = "/home/thinktan/ActionInMlImage"
 elif platform.system().lower() == "windows":
-    PROJECT_ROOT_DIR = "D:/ActionInMlImage" 
+    PROJECT_ROOT_DIR = "D:/ActionInMlImage"
+
 
 CHAPTER_ID = "data"
 IMAGES_PATH = os.path.join(PROJECT_ROOT_DIR, "images", CHAPTER_ID)
