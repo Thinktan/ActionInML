@@ -2,6 +2,11 @@ import Util12
 import tensorflow as tf
 from tensorflow import keras
 
+#gpu_options = tf.GPUOptions(allow_growth=True)
+#sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+
+
+
 def cube(x):
     return x**3
 
