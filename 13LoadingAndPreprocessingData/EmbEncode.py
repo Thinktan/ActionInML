@@ -22,6 +22,7 @@ categories = tf.constant(["NEAR BAY", "DESERT", "INLAND", "INLAND"])
 cat_indices = table.lookup(categories)
 print(cat_indices)
 
+
 print(tf.nn.embedding_lookup(embedding_matrix, cat_indices))
 
 #embedding = keras.layers.Embedding(input_dim=len(vocab)+num_ovv_buckets, output_dim=embedding_dim)
