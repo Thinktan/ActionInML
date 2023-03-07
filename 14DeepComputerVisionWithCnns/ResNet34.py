@@ -50,3 +50,4 @@ model.add(keras.layers.Flatten())
 model.add(keras.layers.Dense(10, activation="softmax"))
 
 print(model.summary())
+
