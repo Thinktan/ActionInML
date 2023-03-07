@@ -1,9 +1,13 @@
 from functools import partial
 from tensorflow import keras
 
+# Keras.layers.Conv2D参数详解
+# https://blog.csdn.net/Checkmate9949/article/details/119609758
+
 DefaultConv2D = partial(keras.layers.Conv2D, kernel_size=3, strides=1,
                         padding="SAME", use_bias=False)
 
+# 残差单元
 class ResidualUnit(keras.layers.Layer):
     def __init__(self, filters, strides=1, activation="relu", **kwargs):
         super().__init__(**kwargs)
@@ -15,6 +19,7 @@ class ResidualUnit(keras.layers.Layer):
             DefaultConv2D(filters),
             keras.layers.BatchNormalization()]
         self.skip_layers = []
+        # 这里是为了保证，得到输出与跳过层的输出与主要层的输出维度相同
         if strides > 1:
             self.skip_layers = [
                 DefaultConv2D(filters, kernel_size=1, strides=strides),
