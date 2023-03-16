@@ -69,3 +69,14 @@ def generate_time_series(batch_size, n_steps):
     series += 0.1 * (np.random.rand(batch_size, n_steps) - 0.5)   # + noise
     return series[..., np.newaxis].astype(np.float32)
 
+def last_time_step_mse(Y_true, Y_pred):
+    return keras.metrics.mean_squared_error(Y_true[:, -1], Y_pred[:, -1])
+
+def plot_multiple_forecasts(X, Y, Y_pred):
+    n_steps = X.shape[1]
+    ahead = Y.shape[1]
+    plot_series(X[0, :, 0])
+    plt.plot(np.arange(n_steps, n_steps + ahead), Y[0, :, 0], "bo-", label="Actual")
+    plt.plot(np.arange(n_steps, n_steps + ahead), Y_pred[0, :, 0], "rx-", label="Forecast", markersize=10)
+    plt.axis([0, n_steps + ahead, -1, 1])
+    plt.legend(fontsize=14)

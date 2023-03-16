@@ -94,16 +94,16 @@ def plot_learning_curves(loss, val_loss):
 # print("Simple RNN: %f" % (model.evaluate(X_valid, y_valid)))
 
 # Deep RNNs
-# model = keras.models.Sequential([
-#     keras.layers.SimpleRNN(20, return_sequences=True, input_shape=[None, 1]),
-#     keras.layers.SimpleRNN(20),
-#     keras.layers.Dense(1)
-# ])
-#
-# model.compile(loss="mse", optimizer="adam")
-# history = model.fit(X_train, y_train, epochs=20,
-#                     validation_data=(X_valid, y_valid))
-# print("Deep RNN: %f" % (model.evaluate(X_valid, y_valid)))
+model = keras.models.Sequential([
+    keras.layers.SimpleRNN(20, return_sequences=True, input_shape=[None, 1]),
+    keras.layers.SimpleRNN(20),
+    keras.layers.Dense(1)
+])
+
+model.compile(loss="mse", optimizer="adam")
+history = model.fit(X_train, y_train, epochs=20,
+                    validation_data=(X_valid, y_valid))
+print("Deep RNN: %f" % (model.evaluate(X_valid, y_valid)))
 
 
 # Forecasting Several Steps Ahead
