@@ -61,3 +61,45 @@ def save_fig(fig_id, tight_layout=True, fig_extension="png", resolution=300):
 def plot_image(image):
     plt.imshow(image, cmap="binary")
     plt.axis("off")
+
+def generate_3d_data(m, w1=0.1, w2=0.3, noise=0.1):
+    angles = np.random.rand(m) * 3 * np.pi / 2 - 0.5
+    data = np.empty((m, 3))
+    data[:, 0] = np.cos(angles) + np.sin(angles)/2 + noise * np.random.randn(m) / 2
+    data[:, 1] = np.sin(angles) * 0.7 + noise * np.random.randn(m) / 2
+    data[:, 2] = data[:, 0] * w1 + data[:, 1] * w2 + noise * np.random.randn(m)
+    return data
+
+def rounded_accuracy(y_true, y_pred):
+    return keras.metrics.binary_accuracy(tf.round(y_true), tf.round(y_pred))
+
+def plot_multiple_images(images, n_cols=None):
+    n_cols = n_cols or len(images)
+    n_rows = (len(images) - 1) // n_cols + 1
+    if images.shape[-1] == 1:
+        images = np.squeeze(images, axis=-1)
+    plt.figure(figsize=(n_cols, n_rows))
+    for index, image in enumerate(images):
+        plt.subplot(n_rows, n_cols, index + 1)
+        plt.imshow(image, cmap="binary")
+        plt.axis("off")
+
+def train_gan(gan, dataset, batch_size, codings_size, n_epochs=50):
+    generator, discriminator = gan.layers
+    for epoch in range(n_epochs):
+        print("Epoch {}/{}".format(epoch + 1, n_epochs))              # not shown in the book
+        for X_batch in dataset:
+            # phase 1 - training the discriminator
+            noise = tf.random.normal(shape=[batch_size, codings_size])
+            generated_images = generator(noise)
+            X_fake_and_real = tf.concat([generated_images, X_batch], axis=0)
+            y1 = tf.constant([[0.]] * batch_size + [[1.]] * batch_size)
+            discriminator.trainable = True
+            discriminator.train_on_batch(X_fake_and_real, y1)
+            # phase 2 - training the generator
+            noise = tf.random.normal(shape=[batch_size, codings_size])
+            y2 = tf.constant([[1.]] * batch_size)
+            discriminator.trainable = False
+            gan.train_on_batch(noise, y2)
+        plot_multiple_images(generated_images, 8)                     # not shown
+        plt.show()
